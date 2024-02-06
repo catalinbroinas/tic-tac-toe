@@ -1,0 +1,10 @@
+1. Gameboard: 
+    null null null
+    null null null
+    null null null
+2. Players: 
+    player: { 
+        marker,
+        name,
+        flowControl
+    }
