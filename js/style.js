@@ -1,22 +1,22 @@
 function Gameboard() {
-    const gameboard = [];
+    const board = [];
     const rows = 3;
     const cols = 3;
 
     for (let i = 0; i < rows; i++) {
-        gameboard[i] = [];
+        board[i] = [];
         for (let j = 0; j < cols; j++) {
-            gameboard[i][j] = null;
+            board[i].push(Cell());
         }
     }
 
-    const getGameboard = () => gameboard;
+    const getBoard = () => board;
 
-    return { getGameboard };
+    return { getBoard };
 }
 
 function Players() {
-    const gameboard = Gameboard();
+    const board = Gameboard();
     const playerOne = {
         marker: 'X',
         name: 'Player One',
@@ -28,30 +28,49 @@ function Players() {
         flowControl: false
     };
 
-    return { playerOne, playerTwo };
+    let activePlayer = playerOne.flowControl ? playerOne : playerTwo;
+
+    const getActivePlayer = () => activePlayer;
+
+    return { getActivePlayer };
 }
 
 function Cell() {
-    const gameboard = Gameboard();
+    let value = null;
+
+    const addMarker = (player) => {
+        value = player;
+    }
+
+    const getValue = () => value;
+
+    return {
+        addMarker, 
+        getValue
+    };
 }
 
 function Game() {
-    const gameboard = Gameboard();
+    const board = Gameboard();
+    const player = Players();
 }
+
 // Display array for test 
 function displayGameboard() {
-    const gameboard = Gameboard();
-    value = 0;
+    const board = Gameboard();
+    num = 0;
 
-    gameboard.getGameboard().forEach((rows) => {
+    board.getBoard().forEach((rows) => {
         rows.forEach((cols) => {
-            cols = value;
-            console.log(value);
-            value++;
+            cols = num;
+            console.log(num);
+            num++;
         });
     });
 
-    console.table(gameboard.getGameboard());
+    console.table(board.getBoard());
 }
 
 displayGameboard();
+const turn = Players();
+console.log(turn.getActivePlayer());
