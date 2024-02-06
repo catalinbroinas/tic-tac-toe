@@ -1,8 +1,10 @@
+// Creating the game board
 function Gameboard() {
     const board = [];
     const rows = 3;
     const cols = 3;
 
+    // Initializing the game board
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < cols; j++) {
@@ -15,8 +17,8 @@ function Gameboard() {
     return { getBoard };
 }
 
+// Defining players properties and methods
 function Players() {
-    const board = Gameboard();
     const playerOne = {
         marker: 'X',
         name: 'Player One',
@@ -35,6 +37,7 @@ function Players() {
     return { getActivePlayer };
 }
 
+// Defining a cell for the game board
 function Cell() {
     let value = null;
 
@@ -55,8 +58,8 @@ function Game() {
     const player = Players();
 }
 
-// Display array for test 
-function displayGameboard() {
+// Displaying the game board in the console
+const displayGameboard = (() => {
     const board = Gameboard();
     num = 0;
 
@@ -69,8 +72,4 @@ function displayGameboard() {
     });
 
     console.table(board.getBoard());
-}
-
-displayGameboard();
-const turn = Players();
-console.log(turn.getActivePlayer());
+})();
