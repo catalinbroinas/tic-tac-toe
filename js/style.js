@@ -3,6 +3,7 @@ function Gameboard() {
     const board = [];
     const rows = 3;
     const cols = 3;
+    const cell = Cell();
 
     // Initializing the game board
     for (let i = 0; i < rows; i++) {
@@ -14,7 +15,16 @@ function Gameboard() {
 
     const getBoard = () => board;
 
-    return { getBoard };
+    const insertMarker = (row, col, player) => {
+        board[row][col] = cell.addMarker(player);
+    };
+
+    const printBoard = () => {
+        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
+        console.table(boardWithCellValues);
+    };
+
+    return { getBoard, insertMarker, printBoard };
 }
 
 // Defining players properties and methods
@@ -43,8 +53,8 @@ function Players() {
 function Cell() {
     let value = null;
 
-    const addMarker = (player) => {
-        value = player;
+    const addMarker = (marker) => {
+        value = marker;
     }
 
     const getValue = () => value;
@@ -58,6 +68,7 @@ function Cell() {
 function Game() {
     const board = Gameboard();
     const player = Players();
+    const cell = Cell();
 
     console.log(`Player is ${player.getActivePlayer().name}.`);
     player.switchActivePlayer();
