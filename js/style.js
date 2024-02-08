@@ -21,20 +21,22 @@ function Gameboard() {
 function Players() {
     const playerOne = {
         marker: 'X',
-        name: 'Player One',
-        flowControl: true
+        name: 'Player One'
     };
     const playerTwo = {
         marker: '0',
-        name: 'Player Two',
-        flowControl: false
+        name: 'Player Two'
     };
 
-    let activePlayer = playerOne.flowControl ? playerOne : playerTwo;
+    let activePlayer = playerOne;
 
     const getActivePlayer = () => activePlayer;
 
-    return { getActivePlayer };
+    const switchActivePlayer = () => {
+        activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
+    };
+
+    return { getActivePlayer, switchActivePlayer };
 }
 
 // Defining a cell for the game board
@@ -56,7 +58,17 @@ function Cell() {
 function Game() {
     const board = Gameboard();
     const player = Players();
+
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
 }
+
+Game();
 
 // Displaying the game board in the console
 const displayGameboard = (() => {
