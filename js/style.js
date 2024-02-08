@@ -3,24 +3,23 @@ function Gameboard() {
     const board = [];
     const rows = 3;
     const cols = 3;
-    const cell = Cell();
 
     // Initializing the game board
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < cols; j++) {
-            board[i].push(Cell());
+            board[i].push(Cell()); 
         }
     }
 
     const getBoard = () => board;
 
     const insertMarker = (row, col, player) => {
-        board[row][col] = cell.addMarker(player);
+        board[row][col].addMarker(player.marker); 
     };
 
     const printBoard = () => {
-        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
+        const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()));
         console.table(boardWithCellValues);
     };
 
@@ -77,22 +76,10 @@ function Game() {
     console.log(`Player is ${player.getActivePlayer().name}.`);
     player.switchActivePlayer();
     console.log(`Player is ${player.getActivePlayer().name}.`);
+    let row = prompt('Index of row');
+    let col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
 }
 
 Game();
-
-// Displaying the game board in the console
-const displayGameboard = (() => {
-    const board = Gameboard();
-    num = 0;
-
-    board.getBoard().forEach((rows) => {
-        rows.forEach((cols) => {
-            cols = num;
-            console.log(num);
-            num++;
-        });
-    });
-
-    console.table(board.getBoard());
-})();
