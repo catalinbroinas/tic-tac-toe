@@ -15,7 +15,7 @@ function Gameboard() {
     const getBoard = () => board;
 
     const insertMarker = (row, col, player) => {
-        board[row][col].addMarker(player.marker); 
+        board[row][col].getValue() === null ? board[row][col].addMarker(player.marker) : console.log('This cell is not available!');;
     };
 
     const printBoard = () => {
@@ -70,16 +70,59 @@ function Game() {
     const cell = Cell();
 
     console.log(`Player is ${player.getActivePlayer().name}.`);
-    player.switchActivePlayer();
-    console.log(`Player is ${player.getActivePlayer().name}.`);
-    player.switchActivePlayer();
-    console.log(`Player is ${player.getActivePlayer().name}.`);
-    player.switchActivePlayer();
-    console.log(`Player is ${player.getActivePlayer().name}.`);
     let row = prompt('Index of row');
     let col = prompt('Index of column');
     board.insertMarker(row, col, player.getActivePlayer());
     board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    player.switchActivePlayer();
+    console.log(`Player is ${player.getActivePlayer().name}.`);
+    row = prompt('Index of row');
+    col = prompt('Index of column');
+    board.insertMarker(row, col, player.getActivePlayer());
+    board.printBoard();
+    console.log('Finale game');
 }
 
 Game();
