@@ -74,7 +74,12 @@ function Game() {
         return arr.length;
     }
 
-    function areAllElementsIdentical(row) {
+    function numCols(arr, row) {
+        return arr[row].length;
+    }
+
+    // Verify elements of row
+    function checkRow(row) {
         if (row.length === 0) {
             return false;
         }
@@ -90,9 +95,23 @@ function Game() {
         return true;
     }
 
+    // Verify elements of column
+    function checkColumn(arr, column) {
+        const firstElement = arr[0][column];
+
+        for (let i = 1; i < arr.length; i++) {
+            if (arr[i][column] !== firstElement) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     function checkWinner(arr) {
+        // Verify if exist a complete row
         for (let i = 0; i < numRows(arr); i++) {
-            if (areAllElementsIdentical(arr[i])) {
+            if (checkRow(arr[i])) {
                 if (arr[i][0] == 'X') {
                     return 'X is winner';
                 } else if (arr[i][0] == '0') {
@@ -100,14 +119,25 @@ function Game() {
                 }
             }
         }
-        
+
+        // Verify if exist a complete column
+        for (let j = 0; j < numCols(arr, 0); j++) { 
+            if (checkColumn(arr, j)) { 
+                if (arr[0][j] == 'X') {
+                    return 'X is winner';
+                } else if (arr[0][j] == '0') {
+                    return 'Zero is winner';
+                }
+            }
+        }
+
         if (!arr.flat().includes(null)) {
             return 'Draw';
         }
 
         return null;
     }
-    
+
     let winner = null;
 
     while (winner === null) {
