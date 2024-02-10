@@ -108,6 +108,34 @@ function Game() {
         return true;
     }
 
+    // Verify elements of diagonals
+    function checkDiagonals(arr) {
+        const n = arr.length;
+        const firstElementMainDiagonal = arr[0][0];
+        const firstElementSecondDiagonal = arr[0][n - 1];
+    
+        let isMainDiagonalIdentical = true;
+        let isSecondDiagonalIdentical = true;
+    
+        // VVerify main diagonal
+        for (let i = 1; i < n; i++) {
+            if (arr[i][i] !== firstElementMainDiagonal) {
+                isMainDiagonalIdentical = false;
+                break;
+            }
+        }
+    
+        // Verify second diagonal
+        for (let i = 0; i < n; i++) {
+            if (arr[i][n - 1 - i] !== firstElementSecondDiagonal) {
+                isSecondDiagonalIdentical = false;
+                break;
+            }
+        }
+    
+        return isMainDiagonalIdentical || isSecondDiagonalIdentical;
+    }
+
     function checkWinner(arr) {
         // Verify if exist a complete row
         for (let i = 0; i < numRows(arr); i++) {
@@ -121,13 +149,22 @@ function Game() {
         }
 
         // Verify if exist a complete column
-        for (let j = 0; j < numCols(arr, 0); j++) { 
-            if (checkColumn(arr, j)) { 
+        for (let j = 0; j < numCols(arr, 0); j++) {
+            if (checkColumn(arr, j)) {
                 if (arr[0][j] == 'X') {
                     return 'X is winner';
                 } else if (arr[0][j] == '0') {
                     return 'Zero is winner';
                 }
+            }
+        }
+
+        // Verify if a diagonal is complete
+        if (checkDiagonals(arr)) {
+            if (arr[0][0] == 'X' || arr[0][arr.length - 1] == 'X') {
+                return 'X is winner';
+            } else if (arr[0][0] == '0' || arr[0][arr.length - 1] == '0') {
+                return 'Zero is winner';
             }
         }
 
