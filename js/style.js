@@ -208,9 +208,23 @@ function DisplayGame() {
     const board = Gameboard();
     const player = Players();
     const boardSect = document.querySelector('#game-board');
+    const playerActive = document.querySelector('#active-player');
 
     const updateDisplay = () => {
+        boardSect.innerHTML = '';
 
+        playerActive.textContent = `Now ${player.getActivePlayer().name} is playing.`;
+
+        board.getBoard().forEach((row) => {
+            row.forEach((cell, index) => {
+                const cellButton = document.createElement('button');
+                cellButton.classList.add('cell');
+
+                cellButton.dataset.col = index;
+                cellButton.textContent = cell.getValue();
+                boardSect.appendChild(cellButton);
+            })
+        })
     };
 
     function clickOnBoard(event) {
@@ -218,6 +232,8 @@ function DisplayGame() {
     }
     
     boardSect.addEventListener('click', clickOnBoard);
+
+    updateDisplay();
 }
 
 window.addEventListener('load', DisplayGame);
