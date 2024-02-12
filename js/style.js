@@ -204,4 +204,20 @@ function Game() {
     console.log('Finale game');
 }
 
-Game();
+function DisplayGame() {
+    const board = Gameboard();
+    const player = Players();
+    const boardSect = document.querySelector('#game-board');
+
+    const updateDisplay = () => {
+
+    };
+
+    function clickOnBoard(event) {
+        
+    }
+    
+    boardSect.addEventListener('click', clickOnBoard);
+}
+
+window.addEventListener('load', DisplayGame);

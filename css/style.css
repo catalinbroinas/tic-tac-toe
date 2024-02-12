@@ -56,3 +56,8 @@ body {
 .header, .main {
     max-width: 100vw;
 }
+
+/* Components */
+.game-board {
+    margin: auto;
+}
