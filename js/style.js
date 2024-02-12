@@ -14,8 +14,16 @@ function Gameboard() {
 
     const getBoard = () => board;
 
+    const isValidMove = (row, col) => {
+        return Number.isInteger(row) && Number.isInteger(col) && row >= 0 && row < rows && col >= 0 && col < cols;
+    };    
+
     const insertMarker = (row, col, player) => {
-        board[row][col].getValue() === null ? board[row][col].addMarker(player.marker) : console.log('This cell is not available!');;
+        if (isValidMove(row, col)) {
+            board[row][col].getValue() === null ? board[row][col].addMarker(player.marker) : console.log('This cell has a value already!');
+        } else {
+            console.log('Invalid move! Please choose another cell.');
+        }
     };
 
     const printBoard = () => {
@@ -86,7 +94,7 @@ function Game() {
 
         const firstElement = row[0];
 
-        for (let i = 0; i < row.length; i++) {
+        for (let i = 1; i < row.length; i++) {
             if (firstElement !== row[i]) {
                 return false;
             }
@@ -110,15 +118,15 @@ function Game() {
 
     // Verify elements of diagonals
     function checkDiagonals(arr) {
-        const n = arr.length;
+        const arrSize = arr.length;
         const firstElementMainDiagonal = arr[0][0];
-        const firstElementSecondDiagonal = arr[0][n - 1];
+        const firstElementSecondDiagonal = arr[0][arrSize - 1];
     
         let isMainDiagonalIdentical = true;
         let isSecondDiagonalIdentical = true;
     
         // VVerify main diagonal
-        for (let i = 1; i < n; i++) {
+        for (let i = 1; i < arrSize; i++) {
             if (arr[i][i] !== firstElementMainDiagonal) {
                 isMainDiagonalIdentical = false;
                 break;
@@ -126,8 +134,8 @@ function Game() {
         }
     
         // Verify second diagonal
-        for (let i = 0; i < n; i++) {
-            if (arr[i][n - 1 - i] !== firstElementSecondDiagonal) {
+        for (let i = 0; i < arrSize; i++) {
+            if (arr[i][arrSize - 1 - i] !== firstElementSecondDiagonal) {
                 isSecondDiagonalIdentical = false;
                 break;
             }
@@ -179,8 +187,8 @@ function Game() {
 
     while (winner === null) {
         console.log(`Player is ${player.getActivePlayer().name}.`);
-        let row = prompt('Index of row');
-        let col = prompt('Index of column');
+        let row = Number.parseInt(prompt('Index of row'));
+        let col = Number.parseInt(prompt('Index of column'));
         board.insertMarker(row, col, player.getActivePlayer());
         board.printBoard();
         player.switchActivePlayer();
