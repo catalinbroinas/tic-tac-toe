@@ -16,7 +16,7 @@ function Gameboard() {
 
     const isValidMove = (row, col) => {
         return Number.isInteger(row) && Number.isInteger(col) && row >= 0 && row < rows && col >= 0 && col < cols;
-    };    
+    };
 
     const insertMarker = (row, col, player) => {
         if (isValidMove(row, col)) {
@@ -121,10 +121,10 @@ function Game() {
         const arrSize = arr.length;
         const firstElementMainDiagonal = arr[0][0];
         const firstElementSecondDiagonal = arr[0][arrSize - 1];
-    
+
         let isMainDiagonalIdentical = true;
         let isSecondDiagonalIdentical = true;
-    
+
         // VVerify main diagonal
         for (let i = 1; i < arrSize; i++) {
             if (arr[i][i] !== firstElementMainDiagonal) {
@@ -132,7 +132,7 @@ function Game() {
                 break;
             }
         }
-    
+
         // Verify second diagonal
         for (let i = 0; i < arrSize; i++) {
             if (arr[i][arrSize - 1 - i] !== firstElementSecondDiagonal) {
@@ -140,11 +140,11 @@ function Game() {
                 break;
             }
         }
-    
+
         return isMainDiagonalIdentical || isSecondDiagonalIdentical;
     }
 
-    function checkWinner(arr) {
+    const checkWinner = (arr) => {
         // Verify if exist a complete row
         for (let i = 0; i < numRows(arr); i++) {
             if (checkRow(arr[i])) {
@@ -181,39 +181,45 @@ function Game() {
         }
 
         return null;
-    }
+    };
 
-    let winner = null;
+    return {
+        checkWinner
+    };
 
-    while (winner === null) {
-        console.log(`Player is ${player.getActivePlayer().name}.`);
-        let row = Number.parseInt(prompt('Index of row'));
-        let col = Number.parseInt(prompt('Index of column'));
-        board.insertMarker(row, col, player.getActivePlayer());
-        board.printBoard();
-        player.switchActivePlayer();
+    // let winner = null;
 
-        winner = checkWinner(board.printBoard());
+    // while (winner === null) {
+    //     console.log(`Player is ${player.getActivePlayer().name}.`);
+    //     let row = Number.parseInt(prompt('Index of row'));
+    //     let col = Number.parseInt(prompt('Index of column'));
+    //     board.insertMarker(row, col, player.getActivePlayer());
+    //     board.printBoard();
+    //     player.switchActivePlayer();
 
-        if (winner) {
-            console.log(winner);
-            break;
-        }
-    }
+    //     winner = checkWinner(board.printBoard());
 
-    console.log('Finale game');
+    //     if (winner) {
+    //         console.log(winner);
+    //         break;
+    //     }
+    // }
+
+    // console.log('Finale game');
 }
 
 function DisplayGame() {
     const board = Gameboard();
     const player = Players();
+    const game = Game();
     const boardSect = document.querySelector('#game-board');
     const playerActive = document.querySelector('#active-player');
 
     const updateDisplay = () => {
         boardSect.innerHTML = '';
 
-        playerActive.textContent = `Now ${player.getActivePlayer().name} is playing.`;
+        playerActive.textContent = playRound() ? `${game.checkWinner(board.printBoard())}` :
+            `Now ${player.getActivePlayer().name} is playing.`;
 
         board.getBoard().forEach((row, indexOfRow) => {
             row.forEach((cell, indexOfCol) => {
@@ -230,15 +236,26 @@ function DisplayGame() {
         })
     };
 
+    function playRound() {
+        if (game.checkWinner(board.printBoard())) {
+            player.switchActivePlayer();
+            boardSect.removeEventListener('click', clickOnBoard);
+            console.log(game.checkWinner(board.printBoard()));
+            return true;
+        } else {
+            console.log('Not winner yet!');
+        }
+    }
+
     function clickOnBoard(event) {
         let selectedRow = Number.parseInt(event.target.dataset.row);
         let selectedCol = Number.parseInt(event.target.dataset.column);
         board.insertMarker(selectedRow, selectedCol, player.getActivePlayer());
-        board.printBoard();
+        playRound();
         player.switchActivePlayer();
         updateDisplay();
     }
-    
+
     boardSect.addEventListener('click', clickOnBoard);
 
     updateDisplay();
