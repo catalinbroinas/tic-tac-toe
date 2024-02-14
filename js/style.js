@@ -215,12 +215,15 @@ function DisplayGame() {
 
         playerActive.textContent = `Now ${player.getActivePlayer().name} is playing.`;
 
-        board.getBoard().forEach((row) => {
-            row.forEach((cell, index) => {
+        board.getBoard().forEach((row, indexOfRow) => {
+            row.forEach((cell, indexOfCol) => {
                 const cellButton = document.createElement('button');
                 cellButton.classList.add('cell');
 
-                cellButton.dataset.col = index;
+                cellButton.setAttribute('type', 'button');
+
+                cellButton.dataset.row = indexOfRow;
+                cellButton.dataset.column = indexOfCol;
                 cellButton.textContent = cell.getValue();
                 boardSect.appendChild(cellButton);
             })
@@ -228,7 +231,12 @@ function DisplayGame() {
     };
 
     function clickOnBoard(event) {
-        
+        let selectedRow = Number.parseInt(event.target.dataset.row);
+        let selectedCol = Number.parseInt(event.target.dataset.column);
+        board.insertMarker(selectedRow, selectedCol, player.getActivePlayer());
+        board.printBoard();
+        player.switchActivePlayer();
+        updateDisplay();
     }
     
     boardSect.addEventListener('click', clickOnBoard);

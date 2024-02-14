@@ -11,3 +11,6 @@
 3. Update Gameboard 
 4. Verify Update Gameboard with Players
 5. Implement condition for game: who win the game or draw
+
+Ui:
+1. Insert player`s marker in cell when clicked cell
