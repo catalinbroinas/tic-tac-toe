@@ -62,7 +62,7 @@ body {
 .game {
     display: flex;
     flex-flow: column wrap;
-    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
@@ -85,4 +85,26 @@ body {
 .cell:hover,
 .cell:active {
     background-color: #ECEFF1;
+}
+.btn {
+    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    display: inline-block;
+    margin: 1rem;
+}
+.btn-reset {
+    background-color: #ffffff;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-radius: 0.3rem;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+.btn-reset:hover,
+.btn-reset:active {
+    background-color: #dc3545;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }

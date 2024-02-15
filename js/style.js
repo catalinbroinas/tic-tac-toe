@@ -218,6 +218,7 @@ function DisplayGame() {
     const board = Gameboard();
     const player = Players();
     const game = Game();
+    const gameSect = document.querySelector('#game');
     const boardSect = document.querySelector('#game-board');
     const playerActive = document.querySelector('#active-player');
 
@@ -240,6 +241,19 @@ function DisplayGame() {
                 boardSect.appendChild(cellButton);
             })
         })
+
+        if (game.checkWinner(board.printBoard())) {
+            const resetButton = document.createElement('button');
+            resetButton.classList.add('btn', 'btn-reset');
+            resetButton.setAttribute('type', 'button');
+            resetButton.textContent = 'Reset';
+
+            gameSect.appendChild(resetButton);
+
+            resetButton.addEventListener('click', () => {
+                location.reload();
+            });
+        }
     };
 
     function playRound() {
