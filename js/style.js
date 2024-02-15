@@ -27,18 +27,16 @@ function Gameboard() {
             board[row][col].addMarker(player.marker);
             return true;
         } else {
-            console.log('Invalid move! Please choose another cell.');
             return false;
         }
     };
 
-    const printBoard = () => {
+    const getBoardWithValues = () => {
         const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()));
-        console.table(boardWithCellValues);
         return boardWithCellValues;
     };
 
-    return { getBoard, insertMarker, printBoard };
+    return { getBoard, insertMarker, getBoardWithValues };
 }
 
 // Defining players properties and methods
@@ -84,16 +82,16 @@ function Game() {
     const player = Players();
     const cell = Cell();
 
-    function numRows(arr) {
+    const numRows  = (arr) => {
         return arr.length;
     }
 
-    function numCols(arr, row) {
+    const numCols = (arr, row) => {
         return arr[row].length;
     }
 
     // Verify elements of row
-    function checkRow(row) {
+    const checkRow = (row) => {
         if (row.length === 0) {
             return false;
         }
@@ -110,7 +108,7 @@ function Game() {
     }
 
     // Verify elements of column
-    function checkColumn(arr, column) {
+    const checkColumn = (arr, column) => {
         const firstElement = arr[0][column];
 
         for (let i = 1; i < arr.length; i++) {
@@ -123,7 +121,7 @@ function Game() {
     }
 
     // Verify elements of diagonals
-    function checkDiagonals(arr) {
+    const checkDiagonals = (arr) => {
         const arrSize = arr.length;
         const firstElementMainDiagonal = arr[0][0];
         const firstElementSecondDiagonal = arr[0][arrSize - 1];
@@ -192,26 +190,6 @@ function Game() {
     return {
         checkWinner
     };
-
-    // let winner = null;
-
-    // while (winner === null) {
-    //     console.log(`Player is ${player.getActivePlayer().name}.`);
-    //     let row = Number.parseInt(prompt('Index of row'));
-    //     let col = Number.parseInt(prompt('Index of column'));
-    //     board.insertMarker(row, col, player.getActivePlayer());
-    //     board.printBoard();
-    //     player.switchActivePlayer();
-
-    //     winner = checkWinner(board.printBoard());
-
-    //     if (winner) {
-    //         console.log(winner);
-    //         break;
-    //     }
-    // }
-
-    // console.log('Finale game');
 }
 
 function DisplayGame() {
@@ -225,7 +203,7 @@ function DisplayGame() {
     const updateDisplay = () => {
         boardSect.innerHTML = '';
 
-        playerActive.textContent = playRound() ? `${game.checkWinner(board.printBoard())}` :
+        playerActive.textContent = playRound() ? `${game.checkWinner(board.getBoardWithValues())}` :
             `Now ${player.getActivePlayer().name} is playing.`;
 
         board.getBoard().forEach((row, indexOfRow) => {
@@ -239,10 +217,10 @@ function DisplayGame() {
                 cellButton.dataset.column = indexOfCol;
                 cellButton.textContent = cell.getValue();
                 boardSect.appendChild(cellButton);
-            })
-        })
+            });
+        });
 
-        if (game.checkWinner(board.printBoard())) {
+        if (game.checkWinner(board.getBoardWithValues())) {
             const resetButton = document.createElement('button');
             resetButton.classList.add('btn', 'btn-reset');
             resetButton.setAttribute('type', 'button');
@@ -256,16 +234,13 @@ function DisplayGame() {
         }
     };
 
-    function playRound() {
-        if (game.checkWinner(board.printBoard())) {
+    const playRound = () => {
+        if (game.checkWinner(board.getBoardWithValues())) {
             player.switchActivePlayer();
             boardSect.removeEventListener('click', clickOnBoard);
-            console.log(game.checkWinner(board.printBoard()));
             return true;
-        } else {
-            console.log('Not winner yet!');
         }
-    }
+    };
 
     const isValidMove = (row, col, marker) => {
         if (board.insertMarker(row, col, marker)) {
@@ -275,7 +250,7 @@ function DisplayGame() {
         }
     };
 
-    function clickOnBoard(event) {
+    const clickOnBoard = (event) => {
         let selectedRow = Number.parseInt(event.target.dataset.row);
         let selectedCol = Number.parseInt(event.target.dataset.column);
         if (isValidMove(selectedRow, selectedCol, player.getActivePlayer())) {
