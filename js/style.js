@@ -15,14 +15,20 @@ function Gameboard() {
     const getBoard = () => board;
 
     const isValidMove = (row, col) => {
-        return Number.isInteger(row) && Number.isInteger(col) && row >= 0 && row < rows && col >= 0 && col < cols;
+        return Number.isInteger(row) && 
+            Number.isInteger(col) && 
+            row >= 0 && row < rows && 
+            col >= 0 && col < cols && 
+            board[row][col].getValue() === null;
     };
 
     const insertMarker = (row, col, player) => {
         if (isValidMove(row, col)) {
-            board[row][col].getValue() === null ? board[row][col].addMarker(player.marker) : console.log('This cell has a value already!');
+            board[row][col].addMarker(player.marker);
+            return true;
         } else {
             console.log('Invalid move! Please choose another cell.');
+            return false;
         }
     };
 
@@ -247,13 +253,22 @@ function DisplayGame() {
         }
     }
 
+    const isValidMove = (row, col, marker) => {
+        if (board.insertMarker(row, col, marker)) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     function clickOnBoard(event) {
         let selectedRow = Number.parseInt(event.target.dataset.row);
         let selectedCol = Number.parseInt(event.target.dataset.column);
-        board.insertMarker(selectedRow, selectedCol, player.getActivePlayer());
-        playRound();
-        player.switchActivePlayer();
-        updateDisplay();
+        if (isValidMove(selectedRow, selectedCol, player.getActivePlayer())) {
+            playRound();
+            player.switchActivePlayer();
+            updateDisplay();
+        }
     }
 
     boardSect.addEventListener('click', clickOnBoard);
