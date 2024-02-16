@@ -58,7 +58,12 @@ function Players() {
         activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
     };
 
-    return { getActivePlayer, switchActivePlayer };
+    const setPlayersName = (nameOfPlayerOne, nameOfPlayerTwo) => {
+        playerOne.name = nameOfPlayerOne ? nameOfPlayerOne : 'Player One';
+        playerTwo.name = nameOfPlayerTwo ? nameOfPlayerTwo : 'Player Two'; 
+    };
+
+    return { getActivePlayer, switchActivePlayer,  setPlayersName};
 }
 
 // Defining a cell for the game board
@@ -261,6 +266,11 @@ function DisplayGame() {
     }
 
     boardSect.addEventListener('click', clickOnBoard);
+
+    let nameOfPlayerOne = prompt('Set name of Player one:');
+    let nameOfPlayerTwo = prompt('Set name of player two');
+
+    player.setPlayersName(nameOfPlayerOne, nameOfPlayerTwo);
 
     updateDisplay();
 }
