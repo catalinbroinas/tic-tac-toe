@@ -63,7 +63,12 @@ function Players() {
         playerTwo.name = nameOfPlayerTwo ? nameOfPlayerTwo : 'Player Two'; 
     };
 
-    return { getActivePlayer, switchActivePlayer,  setPlayersName};
+    const getPlayerNameByMarker = (byMarker) => {
+        const playerName = byMarker === 'X' ? playerOne.name : playerTwo.name;
+        return playerName;
+    };
+
+    return { getActivePlayer, switchActivePlayer,  setPlayersName, getPlayerNameByMarker};
 }
 
 // Defining a cell for the game board
@@ -103,6 +108,10 @@ function Game() {
 
         const firstElement = row[0];
 
+        if (!firstElement) {
+            return false;
+        }
+
         for (let i = 1; i < row.length; i++) {
             if (firstElement !== row[i]) {
                 return false;
@@ -115,6 +124,10 @@ function Game() {
     // Verify elements of column
     const checkColumn = (arr, column) => {
         const firstElement = arr[0][column];
+
+        if (!firstElement) {
+            return false;
+        }
 
         for (let i = 1; i < arr.length; i++) {
             if (arr[i][column] !== firstElement) {
@@ -133,6 +146,13 @@ function Game() {
 
         let isMainDiagonalIdentical = true;
         let isSecondDiagonalIdentical = true;
+
+        if (!firstElementMainDiagonal) {
+            isMainDiagonalIdentical = false;
+        }
+        if (!firstElementSecondDiagonal) {
+            isSecondDiagonalIdentical = false;
+        }
 
         // VVerify main diagonal
         for (let i = 1; i < arrSize; i++) {
@@ -157,32 +177,23 @@ function Game() {
         // Verify if exist a complete row
         for (let i = 0; i < numRows(arr); i++) {
             if (checkRow(arr[i])) {
-                if (arr[i][0] == 'X') {
-                    return 'X is winner';
-                } else if (arr[i][0] == '0') {
-                    return 'Zero is winner';
-                }
+                const winningMarker = arr[i][0];
+                return player.getPlayerNameByMarker(winningMarker);
             }
         }
 
         // Verify if exist a complete column
         for (let j = 0; j < numCols(arr, 0); j++) {
             if (checkColumn(arr, j)) {
-                if (arr[0][j] == 'X') {
-                    return 'X is winner';
-                } else if (arr[0][j] == '0') {
-                    return 'Zero is winner';
-                }
+                const winningMarker = arr[0][j];
+                return player.getPlayerNameByMarker(winningMarker);
             }
         }
 
         // Verify if a diagonal is complete
         if (checkDiagonals(arr)) {
-            if (arr[0][0] == 'X' || arr[0][arr.length - 1] == 'X') {
-                return 'X is winner';
-            } else if (arr[0][0] == '0' || arr[0][arr.length - 1] == '0') {
-                return 'Zero is winner';
-            }
+            const winningMarker = arr[0][0] || arr[0][arr.length -1];
+            return player.getPlayerNameByMarker(winningMarker);
         }
 
         if (!arr.flat().includes(null)) {
