@@ -41,13 +41,16 @@ function Gameboard() {
 
 // Defining players properties and methods
 function Players() {
+    let playerOneName = prompt('Set name of player one:');
+    let playerTwoName = prompt('Set name of player two');
+
     const playerOne = {
         marker: 'X',
-        name: 'Player One'
+        name: playerOneName || 'Player One'
     };
     const playerTwo = {
         marker: '0',
-        name: 'Player Two'
+        name: playerTwoName || 'Player Two'
     };
 
     let activePlayer = playerOne;
@@ -58,17 +61,12 @@ function Players() {
         activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
     };
 
-    const setPlayersName = (nameOfPlayerOne, nameOfPlayerTwo) => {
-        playerOne.name = nameOfPlayerOne ? nameOfPlayerOne : 'Player One';
-        playerTwo.name = nameOfPlayerTwo ? nameOfPlayerTwo : 'Player Two'; 
-    };
-
     const getPlayerNameByMarker = (byMarker) => {
         const playerName = byMarker === 'X' ? playerOne.name : playerTwo.name;
         return playerName;
     };
 
-    return { getActivePlayer, switchActivePlayer,  setPlayersName, getPlayerNameByMarker};
+    return { getActivePlayer, switchActivePlayer, getPlayerNameByMarker};
 }
 
 // Defining a cell for the game board
@@ -178,7 +176,7 @@ function Game() {
         for (let i = 0; i < numRows(arr); i++) {
             if (checkRow(arr[i])) {
                 const winningMarker = arr[i][0];
-                return player.getPlayerNameByMarker(winningMarker);
+                return `${player.getPlayerNameByMarker(winningMarker)} is winner!`;
             }
         }
 
@@ -186,14 +184,14 @@ function Game() {
         for (let j = 0; j < numCols(arr, 0); j++) {
             if (checkColumn(arr, j)) {
                 const winningMarker = arr[0][j];
-                return player.getPlayerNameByMarker(winningMarker);
+                return `${player.getPlayerNameByMarker(winningMarker)} is winner!`;
             }
         }
 
         // Verify if a diagonal is complete
         if (checkDiagonals(arr)) {
             const winningMarker = arr[0][0] || arr[0][arr.length -1];
-            return player.getPlayerNameByMarker(winningMarker);
+            return `${player.getPlayerNameByMarker(winningMarker)} is winner!`;
         }
 
         if (!arr.flat().includes(null)) {
@@ -220,7 +218,7 @@ function DisplayGame() {
         boardSect.innerHTML = '';
 
         playerActive.textContent = playRound() ? `${game.checkWinner(board.getBoardWithValues())}` :
-            `Now ${player.getActivePlayer().name} is playing.`;
+            `${player.getActivePlayer().name} is playing.`;
 
         board.getBoard().forEach((row, indexOfRow) => {
             row.forEach((cell, indexOfCol) => {
@@ -277,11 +275,6 @@ function DisplayGame() {
     }
 
     boardSect.addEventListener('click', clickOnBoard);
-
-    let nameOfPlayerOne = prompt('Set name of Player one:');
-    let nameOfPlayerTwo = prompt('Set name of player two');
-
-    player.setPlayersName(nameOfPlayerOne, nameOfPlayerTwo);
 
     updateDisplay();
 }
