@@ -279,4 +279,4 @@ function DisplayGame() {
     updateDisplay();
 }
 
-window.addEventListener('load', DisplayGame);
+// window.addEventListener('load', DisplayGame);
