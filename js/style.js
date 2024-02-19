@@ -40,10 +40,7 @@ function Gameboard() {
 }
 
 // Defining players properties and methods
-function Players() {
-    let playerOneName = prompt('Set name of player one:');
-    let playerTwoName = prompt('Set name of player two');
-
+function Players(playerOneName, playerTwoName) {
     const playerOne = {
         marker: 'X',
         name: playerOneName || 'Player One'
@@ -85,9 +82,9 @@ function Cell() {
     };
 }
 
-function Game() {
+function Game(playerOneName, playerTwoName) {
     const board = Gameboard();
-    const player = Players();
+    const player = Players(playerOneName, playerTwoName);
     const cell = Cell();
 
     const numRows  = (arr) => {
@@ -206,10 +203,10 @@ function Game() {
     };
 }
 
-function DisplayGame() {
+function DisplayGame(playerOneName, playerTwoName) {
     const board = Gameboard();
-    const player = Players();
-    const game = Game();
+    const player = Players(playerOneName, playerTwoName);
+    const game = Game(playerOneName, playerTwoName);
     const gameSect = document.querySelector('#game');
     const boardSect = document.querySelector('#game-board');
     const playerActive = document.querySelector('#active-player');
@@ -279,4 +276,16 @@ function DisplayGame() {
     updateDisplay();
 }
 
-// window.addEventListener('load', DisplayGame);
+function CreatePlayers() {
+    const setNamesForm = document.querySelector('#set-name');
+    const playerOneNameInput = document.querySelector('#player-one');
+    const playerTwoNameInput = document.querySelector('#player-two');
+    const applyButton = document.querySelector('#apply-btn');
+
+    applyButton.addEventListener('click', () => {
+        DisplayGame(playerOneNameInput.value, playerTwoNameInput.value);
+        setNamesForm.style.display = 'none';
+    });
+}
+
+window.addEventListener('load', CreatePlayers);
