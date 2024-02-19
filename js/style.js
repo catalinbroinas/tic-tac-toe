@@ -175,7 +175,7 @@ function Game(playerOneName, playerTwoName) {
         for (let i = 0; i < numRows(arr); i++) {
             if (checkRow(arr[i])) {
                 const winningMarker = arr[i][0];
-                return `${player.getPlayerNameByMarker(winningMarker)} is winner!`;
+                return `${player.getPlayerNameByMarker(winningMarker)}`;
             }
         }
 
@@ -183,14 +183,14 @@ function Game(playerOneName, playerTwoName) {
         for (let j = 0; j < numCols(arr, 0); j++) {
             if (checkColumn(arr, j)) {
                 const winningMarker = arr[0][j];
-                return `${player.getPlayerNameByMarker(winningMarker)} is winner!`;
+                return `${player.getPlayerNameByMarker(winningMarker)}`;
             }
         }
 
         // Verify if a diagonal is complete
         if (checkDiagonals(arr)) {
             const winningMarker = arr[0][0] || arr[0][arr.length -1];
-            return `${player.getPlayerNameByMarker(winningMarker)} is winner!`;
+            return `${player.getPlayerNameByMarker(winningMarker)}`;
         }
 
         // The game board is full, but there is no a winner
@@ -217,11 +217,12 @@ function DisplayGame(playerOneName, playerTwoName) {
 
     // Update the display after each event
     const updateDisplay = () => {
-        boardSect.style.display = 'grid';
         boardSect.innerHTML = '';
+        boardSect.style.display = 'grid';
+        playerActive.style.display = 'grid';
 
         playerActive.textContent = handleGameEnd() ? `${game.checkWinner(board.getBoardWithValues())}` :
-            `${player.getActivePlayer().name} is playing.`;
+            `${player.getActivePlayer().name}`;
 
         board.getBoard().forEach((row, indexOfRow) => {
             row.forEach((cell, indexOfCol) => {
@@ -257,6 +258,7 @@ function DisplayGame(playerOneName, playerTwoName) {
         if (game.checkWinner(board.getBoardWithValues())) {
             player.switchActivePlayer();
             boardSect.removeEventListener('click', clickOnBoard);
+            playerActive.style.cssText = 'background-color: #14A44D; display: grid;';
             return true;
         }
     };

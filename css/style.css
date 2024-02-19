@@ -50,11 +50,11 @@ input {
 .text {
     font-size: 1.25rem;
     color: #ffffff;
-    margin-bottom: 0.5rem;
+    margin: 0;
     text-transform: lowercase;
 }
-.text::first-letter {
-    text-transform: capitalize;
+.text-info::first-letter {
+    text-transform: uppercase;
 }
 
 .label-text {
@@ -103,16 +103,31 @@ input {
 /* Components */
 .game-board {
     display: none;
-    grid-template-rows: repeat(3, 5rem);
-    grid-template-columns: repeat(3, 5rem);
+    grid-template-rows: repeat(3, 7.5rem);
+    grid-template-columns: repeat(3, 7.5rem);
     justify-content: center;
     border-collapse: collapse;
     margin: 1rem 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+.player-info {
+    display: none;
+    width: 22.5rem;
+    text-align: center;
+    padding: 1rem 0;
+    background-color: #2979FF;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 2rem;
+    text-transform: capitalize;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+.player-info::first-letter {
+    text-transform: uppercase;
+}
 
 .cell {
-    font-size: 2rem;
+    font-size: 4rem;
     background-color: #FBFBFB;
     color: #304FFE;
     border-color: #304FFE;
@@ -120,7 +135,7 @@ input {
 }
 .cell:hover,
 .cell:active {
-    background-color: #ECEFF1;
+    background-color: #E3F2FD;
 }
 .btn {
     cursor: pointer;
@@ -131,8 +146,8 @@ input {
 }
 .btn-reset {
     background-color: #ffffff;
-    border: 2px solid #dc3545;
-    color: #dc3545;
+    border: 2px solid #332D2D;
+    color: #332D2D;
     font-size: 1rem;
     text-transform: uppercase;
     border-radius: 0.3rem;
@@ -140,7 +155,7 @@ input {
 }
 .btn-reset:hover,
 .btn-reset:active {
-    background-color: #dc3545;
+    background-color: #332D2D;
     color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
