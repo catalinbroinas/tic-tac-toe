@@ -26,29 +26,30 @@ input {
 /* Typography */
 .page-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
     text-transform: capitalize;
-    margin-bottom: 2rem;
+    color: #ffffff;
+    font-family: 'Roboto', Arial, sans-serif;
 }
 
 .title {
     font-size: 1.7rem;
     margin-bottom: 1.1rem;
-    color: #333;
+    color: #ffffff;
     text-transform: capitalize;
 }
 
 .sub-title {
     font-size: 1.5rem;
-    color: #555;
+    color: #ffffff;
     margin-bottom: 1.1rem;
     text-transform: capitalize;
 }
 
 .text {
     font-size: 1.25rem;
-    color: #777;
+    color: #ffffff;
     margin-bottom: 0.5rem;
     text-transform: lowercase;
 }
@@ -59,15 +60,26 @@ input {
 .label-text {
     font-size: 1.25rem;
     font-weight: lighter;
-    color: #9E9E9E;
+    color: #E3F2FD;
 }
 .form-control {
     font-size: 1.5rem;
     font-weight: normal;
-    color: #332D2D;
+    color: #304FFE;
 }
 
 /* Layout */
+.container-fluid {
+    max-width: 100vw;
+    min-height: 80vh;
+}
+.waves-container {
+    position: relative;
+}
+.waves-container > svg {
+    position: absolute;
+    z-index: -1;
+}
 .container {
     width: min(1320px, 100%);
     margin-left: auto;
@@ -78,6 +90,9 @@ input {
 .header, .main {
     max-width: 100vw;
 }
+.header {
+    padding: 2rem 0;
+}
 .game {
     display: flex;
     flex-flow: column wrap;
@@ -87,18 +102,20 @@ input {
 
 /* Components */
 .game-board {
-    display: grid;
+    display: none;
     grid-template-rows: repeat(3, 5rem);
     grid-template-columns: repeat(3, 5rem);
     justify-content: center;
     border-collapse: collapse;
     margin: 1rem 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .cell {
     font-size: 2rem;
     background-color: #FBFBFB;
-    color: #332D2D;
+    color: #304FFE;
+    border-color: #304FFE;
     cursor: pointer;
 }
 .cell:hover,
@@ -142,6 +159,10 @@ input {
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
+.set-name {
+    margin: 3rem 0;
+}
+
 .form-row {
     width: min(800px, 80%);
     display: flex;
@@ -161,9 +182,9 @@ input {
 
 .form-control {
     max-width: 100%;
-    border-bottom: 2px solid #BDBDBD;
-    transition: border-color 0.3s ease-in-out;
+    background-color: #E3F2FD;
+    transition: background-color 0.3s ease-in-out;
 }
 .form-control:focus {
-    border-color: #616161;
+    background-color: white;
 }

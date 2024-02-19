@@ -217,6 +217,7 @@ function DisplayGame(playerOneName, playerTwoName) {
 
     // Update the display after each event
     const updateDisplay = () => {
+        boardSect.style.display = 'grid';
         boardSect.innerHTML = '';
 
         playerActive.textContent = handleGameEnd() ? `${game.checkWinner(board.getBoardWithValues())}` :

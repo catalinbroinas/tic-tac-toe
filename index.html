@@ -12,18 +12,15 @@
 </head>
 
 <body>
-
-    <!-- Header -->
-    <header class="header">
-        <!-- Page Title -->
-        <h1 class="page-title">Tic Tac Toe</h1>
-    </header>
-    <!-- Header -->
-
-    <!-- Main -->
-    <main class="main">
-        <!-- Container -->
-        <div class="container">
+    <!-- Container Fluid -->
+    <div class="container-fluid waves-container">
+        <svg viewBox="0 0 300 200">
+            <path d="M 0,100 C 250,170 350,0 500,100 L 500,00 L 0,0" fill="#304FFE"></path>
+        </svg>
+        <!-- Header -->
+        <header class="header">
+            <!-- Page Title -->
+            <h1 class="page-title">Tic Tac Toe</h1>
             <!-- Form -->
             <section id="set-name" class="set-name">
                 <!-- Row -->
@@ -43,21 +40,29 @@
                 </div>
                 <!-- Row -->
                 <!-- Button -->
-                <button id="apply-btn" class="btn btn-primary" type="button">Apply</button>
+                <button id="apply-btn" class="btn btn-primary" type="button">Play Game</button>
             </section>
             <!-- Form -->
-            <!-- Game Wrapper -->
-            <section id="game" class="game">
-                <!-- Text -->
-                <p id="active-player" class="text"></p>
-                <!-- Game board -->
-                <div id="game-board" class="game-board"></div>
-            </section>
-            <!-- Game Wrapper -->
-        </div>
-        <!-- Container -->
-    </main>
-    <!-- Main -->
+        </header>
+        <!-- Header -->
+        <!-- Main -->
+        <main class="main">
+            <!-- Container -->
+            <div class="container">
+                <!-- Game Wrapper -->
+                <section id="game" class="game">
+                    <!-- Text -->
+                    <p id="active-player" class="text"></p>
+                    <!-- Game board -->
+                    <div id="game-board" class="game-board"></div>
+                </section>
+                <!-- Game Wrapper -->
+            </div>
+            <!-- Container -->
+        </main>
+        <!-- Main -->
+    </div>
+    <!-- Container Fluid -->
 
     <!-- Footer -->
     <footer>
