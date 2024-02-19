@@ -82,6 +82,7 @@ function Cell() {
     };
 }
 
+// Defines the game logic and functions for managing the game state
 function Game(playerOneName, playerTwoName) {
     const board = Gameboard();
     const player = Players(playerOneName, playerTwoName);
@@ -168,6 +169,7 @@ function Game(playerOneName, playerTwoName) {
         return isMainDiagonalIdentical || isSecondDiagonalIdentical;
     }
 
+    // Verify if exist a winner
     const checkWinner = (arr) => {
         // Verify if exist a complete row
         for (let i = 0; i < numRows(arr); i++) {
@@ -191,6 +193,7 @@ function Game(playerOneName, playerTwoName) {
             return `${player.getPlayerNameByMarker(winningMarker)} is winner!`;
         }
 
+        // The game board is full, but there is no a winner
         if (!arr.flat().includes(null)) {
             return 'Draw';
         }
@@ -203,6 +206,7 @@ function Game(playerOneName, playerTwoName) {
     };
 }
 
+// Handles the display and interaction of the game interface.
 function DisplayGame(playerOneName, playerTwoName) {
     const board = Gameboard();
     const player = Players(playerOneName, playerTwoName);
@@ -211,10 +215,11 @@ function DisplayGame(playerOneName, playerTwoName) {
     const boardSect = document.querySelector('#game-board');
     const playerActive = document.querySelector('#active-player');
 
+    // Update the display after each event
     const updateDisplay = () => {
         boardSect.innerHTML = '';
 
-        playerActive.textContent = playRound() ? `${game.checkWinner(board.getBoardWithValues())}` :
+        playerActive.textContent = handleGameEnd() ? `${game.checkWinner(board.getBoardWithValues())}` :
             `${player.getActivePlayer().name} is playing.`;
 
         board.getBoard().forEach((row, indexOfRow) => {
@@ -231,6 +236,7 @@ function DisplayGame(playerOneName, playerTwoName) {
             });
         });
 
+        // After the game is over, it displays the possible actions
         if (game.checkWinner(board.getBoardWithValues())) {
             const resetButton = document.createElement('button');
             resetButton.classList.add('btn', 'btn-reset');
@@ -245,7 +251,8 @@ function DisplayGame(playerOneName, playerTwoName) {
         }
     };
 
-    const playRound = () => {
+    // Display result and block game boar
+    const handleGameEnd = () => {
         if (game.checkWinner(board.getBoardWithValues())) {
             player.switchActivePlayer();
             boardSect.removeEventListener('click', clickOnBoard);
@@ -253,6 +260,7 @@ function DisplayGame(playerOneName, playerTwoName) {
         }
     };
 
+    // Verify if the marker has been inserted
     const isValidMove = (row, col, marker) => {
         if (board.insertMarker(row, col, marker)) {
             return true;
@@ -261,11 +269,12 @@ function DisplayGame(playerOneName, playerTwoName) {
         }
     };
 
+    // Handles the event when a cell on the game board is clicked
     const clickOnBoard = (event) => {
         let selectedRow = Number.parseInt(event.target.dataset.row);
         let selectedCol = Number.parseInt(event.target.dataset.column);
         if (isValidMove(selectedRow, selectedCol, player.getActivePlayer())) {
-            playRound();
+            handleGameEnd();
             player.switchActivePlayer();
             updateDisplay();
         }
@@ -276,6 +285,7 @@ function DisplayGame(playerOneName, playerTwoName) {
     updateDisplay();
 }
 
+// Set names of players and start the game
 function CreatePlayers() {
     const setNamesForm = document.querySelector('#set-name');
     const playerOneNameInput = document.querySelector('#player-one');
