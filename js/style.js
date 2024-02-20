@@ -36,7 +36,16 @@ function Gameboard() {
         return boardWithCellValues;
     };
 
-    return { getBoard, insertMarker, getBoardWithValues };
+    const resetBoard = () => {
+        for (let i = 0; i < rows; i++) {
+            board[i] = [];
+            for (let j = 0; j < cols; j++) {
+                board[i].push(Cell());
+            }
+        }
+    }
+
+    return { getBoard, insertMarker, getBoardWithValues, resetBoard };
 }
 
 // Defining players properties and methods
@@ -211,6 +220,7 @@ function DisplayGame(playerOneName, playerTwoName) {
     const board = Gameboard();
     const player = Players(playerOneName, playerTwoName);
     const game = Game(playerOneName, playerTwoName);
+    const createPlayer = CreatePlayers();
     const gameSect = document.querySelector('#game');
     const boardSect = document.querySelector('#game-board');
     const playerActive = document.querySelector('#active-player');
@@ -307,6 +317,11 @@ function DisplayGame(playerOneName, playerTwoName) {
             resetButton.addEventListener('click', () => {
                 location.reload();
             });
+            playAgainButton.addEventListener('click', () => {
+                board.resetBoard();
+                DisplayGame(createPlayer.getPlayerOneName(), createPlayer.getPlayerTwoName());
+                wrapperButtons.remove();
+            });
         }
     };
 
@@ -355,6 +370,11 @@ function CreatePlayers() {
         DisplayGame(playerOneNameInput.value, playerTwoNameInput.value);
         setNamesForm.style.display = 'none';
     });
+
+    const getPlayerOneName = () => playerOneNameInput.value;
+    const getPlayerTwoName = () => playerTwoNameInput.value;
+
+    return { getPlayerOneName, getPlayerTwoName }
 }
 
 window.addEventListener('load', CreatePlayers);
