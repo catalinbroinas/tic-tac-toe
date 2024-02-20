@@ -279,18 +279,30 @@ function DisplayGame(playerOneName, playerTwoName) {
 
         // After the game is over, it displays the possible actions
         if (game.checkWinner(board.getBoardWithValues())) {
+            const wrapperButtons = document.createElement('div');
             const resetButton = document.createElement('button');
-            resetButton.classList.add('btn', 'btn-reset');
-            resetButton.setAttribute('type', 'button');
-            resetButton.textContent = 'Reset';
+            const playAgainButton = document.createElement('button');
 
+            wrapperButtons.classList.add('btn-group');
+            resetButton.classList.add('btn', 'btn-reset');
+            playAgainButton.classList.add('btn', 'btn-primary');
+
+            resetButton.setAttribute('type', 'button');
+            playAgainButton.setAttribute('type', 'button');
+
+            resetButton.textContent = 'Reset';
+            playAgainButton.textContent = 'Play again';
+
+            // Style for displaying result
             if (game.checkWinner(board.getBoardWithValues()) === 'Draw') {
                 playerActive.style.cssText = 'background-color: #FBFBFB; color: #304FFE; display: grid;';
             } else {
                 playerActive.style.cssText = 'background-color: #14A44D; display: grid;';
             }
 
-            gameSect.appendChild(resetButton);
+            gameSect.appendChild(wrapperButtons);
+            wrapperButtons.appendChild(playAgainButton);
+            wrapperButtons.appendChild(resetButton);
 
             resetButton.addEventListener('click', () => {
                 location.reload();
