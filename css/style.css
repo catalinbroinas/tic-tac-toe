@@ -115,7 +115,6 @@ input {
     width: 22.5rem;
     text-align: center;
     padding: 1rem 0;
-    background-color: #2979FF;
     color: #ffffff;
     font-weight: bold;
     font-size: 2rem;
@@ -129,7 +128,6 @@ input {
 .cell {
     font-size: 4rem;
     background-color: #FBFBFB;
-    color: #304FFE;
     border-color: #304FFE;
     cursor: pointer;
 }
@@ -137,6 +135,35 @@ input {
 .cell:active {
     background-color: #E3F2FD;
 }
+
+.cell.hovered,
+.cell.pressed {
+    background-color: #EDE7F6;
+}
+
+.mark-x,
+.mark-x:hover,
+.mark-x:active {
+    background-color: #E3F2FD;
+    color: #2979FF;
+    cursor: default;
+}
+.mark-0,
+.mark-0:hover,
+.mark-0:active {
+    background-color: #EDE7F6;
+    color: #651FFF;
+    cursor: default;
+}
+
+.empty {
+    cursor: default;
+}
+.cell.empty:hover, 
+.cell.empty:active {
+    background-color: #FBFBFB;
+}
+
 .btn {
     cursor: pointer;
     padding: 0.75rem 1.5rem;
@@ -144,6 +171,7 @@ input {
     display: inline-block;
     margin: 1rem;
 }
+
 .btn-reset {
     background-color: #ffffff;
     border: 2px solid #332D2D;
@@ -157,7 +185,7 @@ input {
 .btn-reset:active {
     background-color: #332D2D;
     color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 .btn-primary {
     display: flex;

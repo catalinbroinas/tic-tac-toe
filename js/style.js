@@ -15,10 +15,10 @@ function Gameboard() {
     const getBoard = () => board;
 
     const isValidMove = (row, col) => {
-        return Number.isInteger(row) && 
-            Number.isInteger(col) && 
-            row >= 0 && row < rows && 
-            col >= 0 && col < cols && 
+        return Number.isInteger(row) &&
+            Number.isInteger(col) &&
+            row >= 0 && row < rows &&
+            col >= 0 && col < cols &&
             board[row][col].getValue() === null;
     };
 
@@ -63,7 +63,7 @@ function Players(playerOneName, playerTwoName) {
         return playerName;
     };
 
-    return { getActivePlayer, switchActivePlayer, getPlayerNameByMarker};
+    return { getActivePlayer, switchActivePlayer, getPlayerNameByMarker };
 }
 
 // Defining a cell for the game board
@@ -88,7 +88,7 @@ function Game(playerOneName, playerTwoName) {
     const player = Players(playerOneName, playerTwoName);
     const cell = Cell();
 
-    const numRows  = (arr) => {
+    const numRows = (arr) => {
         return arr.length;
     }
 
@@ -189,7 +189,7 @@ function Game(playerOneName, playerTwoName) {
 
         // Verify if a diagonal is complete
         if (checkDiagonals(arr)) {
-            const winningMarker = arr[0][0] || arr[0][arr.length -1];
+            const winningMarker = arr[0][0] || arr[0][arr.length - 1];
             return `${player.getPlayerNameByMarker(winningMarker)}`;
         }
 
@@ -219,11 +219,19 @@ function DisplayGame(playerOneName, playerTwoName) {
     const updateDisplay = () => {
         boardSect.innerHTML = '';
         boardSect.style.display = 'grid';
-        playerActive.style.display = 'grid';
 
         playerActive.textContent = handleGameEnd() ? `${game.checkWinner(board.getBoardWithValues())}` :
             `${player.getActivePlayer().name}`;
 
+        if (player.getActivePlayer().marker === 'X') {
+            playerActive.style.cssText = 'background-color: #2979FF; display: grid;';
+        }
+
+        if (player.getActivePlayer().marker === '0') {
+            playerActive.style.cssText = 'background-color: #651FFF; display: grid;';
+        }
+
+        // Display game board
         board.getBoard().forEach((row, indexOfRow) => {
             row.forEach((cell, indexOfCol) => {
                 const cellButton = document.createElement('button');
@@ -234,6 +242,37 @@ function DisplayGame(playerOneName, playerTwoName) {
                 cellButton.dataset.row = indexOfRow;
                 cellButton.dataset.column = indexOfCol;
                 cellButton.textContent = cell.getValue();
+
+                // Change style when player two is active
+                if (player.getActivePlayer().marker === '0') {
+                    cellButton.addEventListener('mouseover', () => {
+                        cellButton.classList.add('hovered');
+                    });
+                    cellButton.addEventListener('mouseout', () => {
+                        cellButton.classList.remove('hovered');
+                    });
+                    cellButton.addEventListener('mousedown', () => {
+                        cellButton.classList.add('pressed');
+                    });
+                    cellButton.addEventListener('mouseup', () => {
+                        cellButton.classList.remove('pressed');
+                    });
+                }
+
+                if (cellButton.textContent === 'X') {
+                    cellButton.classList.add('mark-x');
+                }
+
+                if (cellButton.textContent === '0') {
+                    cellButton.classList.add('mark-0');
+                }
+
+                if (game.checkWinner(board.getBoardWithValues())) {
+                    if (!cellButton.textContent) {
+                        cellButton.classList.add('empty');
+                    }
+                }
+
                 boardSect.appendChild(cellButton);
             });
         });
@@ -244,6 +283,12 @@ function DisplayGame(playerOneName, playerTwoName) {
             resetButton.classList.add('btn', 'btn-reset');
             resetButton.setAttribute('type', 'button');
             resetButton.textContent = 'Reset';
+
+            if (game.checkWinner(board.getBoardWithValues()) === 'Draw') {
+                playerActive.style.cssText = 'background-color: #FBFBFB; color: #304FFE; display: grid;';
+            } else {
+                playerActive.style.cssText = 'background-color: #14A44D; display: grid;';
+            }
 
             gameSect.appendChild(resetButton);
 
@@ -258,7 +303,6 @@ function DisplayGame(playerOneName, playerTwoName) {
         if (game.checkWinner(board.getBoardWithValues())) {
             player.switchActivePlayer();
             boardSect.removeEventListener('click', clickOnBoard);
-            playerActive.style.cssText = 'background-color: #14A44D; display: grid;';
             return true;
         }
     };
