@@ -229,16 +229,21 @@ function DisplayGame(playerOneName, playerTwoName) {
     const updateDisplay = () => {
         boardSect.innerHTML = '';
         boardSect.style.display = 'grid';
+        const iconActivePlayer = document.createElement('i'); 
+
+        iconActivePlayer.classList.add('mdi', 'mdi-lightbulb-on');
 
         playerActive.textContent = handleGameEnd() ? `${game.checkWinner(board.getBoardWithValues())}` :
             `${player.getActivePlayer().name}`;
 
         if (player.getActivePlayer().marker === 'X') {
-            playerActive.style.cssText = 'background-color: #2979FF; display: grid;';
+            playerActive.style.cssText = 'background-color: #2979FF; display: flex;';
+            playerActive.appendChild(iconActivePlayer);
         }
 
         if (player.getActivePlayer().marker === '0') {
-            playerActive.style.cssText = 'background-color: #651FFF; display: grid;';
+            playerActive.style.cssText = 'background-color: #651FFF; display: flex;';
+            playerActive.appendChild(iconActivePlayer);
         }
 
         // Display game board
@@ -292,10 +297,14 @@ function DisplayGame(playerOneName, playerTwoName) {
             const wrapperButtons = document.createElement('div');
             const resetButton = document.createElement('button');
             const playAgainButton = document.createElement('button');
+            const iconRefresh = document.createElement('i');
+            const iconRetryGame = document.createElement('i');
 
             wrapperButtons.classList.add('btn-group');
             resetButton.classList.add('btn', 'btn-reset');
             playAgainButton.classList.add('btn', 'btn-primary');
+            iconRefresh.classList.add('mdi', 'mdi-refresh', 'me');
+            iconRetryGame.classList.add('mdi', 'mdi-play', 'me');
 
             resetButton.setAttribute('type', 'button');
             playAgainButton.setAttribute('type', 'button');
@@ -305,14 +314,20 @@ function DisplayGame(playerOneName, playerTwoName) {
 
             // Style for displaying result
             if (game.checkWinner(board.getBoardWithValues()) === 'Draw') {
-                playerActive.style.cssText = 'background-color: #FBFBFB; color: #304FFE; display: grid;';
+                iconActivePlayer.classList.remove('mdi-lightbulb-on');
+                iconActivePlayer.classList.add('mdi-equal');
+                playerActive.style.cssText = 'background-color: #FBFBFB; color: #304FFE; display: flex;';
             } else {
-                playerActive.style.cssText = 'background-color: #14A44D; display: grid;';
+                iconActivePlayer.classList.remove('mdi-lightbulb-on');
+                iconActivePlayer.classList.add('mdi-trophy');
+                playerActive.style.cssText = 'background-color: #14A44D; display: flex;';
             }
 
             gameSect.appendChild(wrapperButtons);
             wrapperButtons.appendChild(playAgainButton);
             wrapperButtons.appendChild(resetButton);
+            playAgainButton.appendChild(iconRetryGame);
+            resetButton.appendChild(iconRefresh);
 
             resetButton.addEventListener('click', (event) => {
                 rippleEffect(event.target);

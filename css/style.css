@@ -37,6 +37,11 @@ input {
     color: #304FFE;
 }
 
+/* Spacing */
+.me {
+    margin-right: 0.5rem;
+}
+
 /* Layout */
 .container-fluid {
     max-width: 100vw;
@@ -89,6 +94,10 @@ input {
 }
 .player-info {
     display: none;
+    flex-flow: row-reverse wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     width: 22.5rem;
     text-align: center;
     padding: 1rem 0;
@@ -165,7 +174,6 @@ input {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 .btn-primary {
-    display: flex;
     margin: auto;
     background-color: #3B71CA;
     color: #ffffff;
@@ -179,6 +187,12 @@ input {
     box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
 }
 
+.btn-reset, .btn-primary {
+    display: flex;
+    flex-flow: row-reverse wrap;
+    justify-content: center;
+    align-items: center;
+}
 .set-name {
     margin: 3rem 0;
     display: flex;
