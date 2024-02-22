@@ -314,13 +314,19 @@ function DisplayGame(playerOneName, playerTwoName) {
             wrapperButtons.appendChild(playAgainButton);
             wrapperButtons.appendChild(resetButton);
 
-            resetButton.addEventListener('click', () => {
-                location.reload();
+            resetButton.addEventListener('click', (event) => {
+                rippleEffect(event.target);
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
             });
-            playAgainButton.addEventListener('click', () => {
-                board.resetBoard();
-                DisplayGame(createPlayer.getPlayerOneName(), createPlayer.getPlayerTwoName());
-                wrapperButtons.remove();
+            playAgainButton.addEventListener('click', (event) => {
+                rippleEffect(event.target);
+                setTimeout(() => {
+                    board.resetBoard();
+                    DisplayGame(createPlayer.getPlayerOneName(), createPlayer.getPlayerTwoName());
+                    wrapperButtons.remove();
+                }, 500);
             });
         }
     };
@@ -366,15 +372,42 @@ function CreatePlayers() {
     const playerTwoNameInput = document.querySelector('#player-two');
     const applyButton = document.querySelector('#apply-btn');
 
-    applyButton.addEventListener('click', () => {
-        DisplayGame(playerOneNameInput.value, playerTwoNameInput.value);
-        setNamesForm.style.display = 'none';
+    applyButton.addEventListener('click', (event) => {
+        rippleEffect(event.target);
+        setTimeout(() => {
+            DisplayGame(playerOneNameInput.value, playerTwoNameInput.value);
+            setNamesForm.style.display = 'none';
+        }, 500);
     });
 
     const getPlayerOneName = () => playerOneNameInput.value;
     const getPlayerTwoName = () => playerTwoNameInput.value;
 
     return { getPlayerOneName, getPlayerTwoName }
+}
+
+// Add ripple effect to buttons
+function rippleEffect(btn) {
+    const ripple = document.createElement("span");
+
+    ripple.classList.add("ripple");
+
+    btn.appendChild(ripple);
+
+    // Get position of X
+    const x = btn.clientX - btn.offsetLeft;
+
+    // Get position of Y 
+    const y = btn.clientY - btn.offsetTop;
+
+    // Position the span element 
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+
+     // Remove span after 0.3s 
+     setTimeout(() => {
+        ripple.remove();
+    }, 300);
 }
 
 window.addEventListener('load', CreatePlayers);

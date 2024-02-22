@@ -140,6 +140,8 @@ input {
 }
 
 .btn {
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
     padding: 0.75rem 1.5rem;
     border: none;
@@ -208,6 +210,32 @@ input {
 }
 .form-control:focus {
     background-color: white;
+}
+
+/* Animation */
+.btn span {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    animation: ripple 1s;
+    opacity: 0;
+}
+
+/* Add animation */
+@keyframes ripple {
+    from {
+        opacity: 1;
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(10);
+    }
 }
 
 /* HD+ Devices */
