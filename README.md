@@ -5,3 +5,5 @@ Technologies used:
  * HTML
  * CSS
  * Javascript
+
+<a href="https://catalinbroinas.github.io/tic-tac-toe/">Live Demo</a>
