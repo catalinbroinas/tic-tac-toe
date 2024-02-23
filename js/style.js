@@ -382,13 +382,16 @@ function DisplayGame(playerOneName, playerTwoName) {
 
 // Set names of players and start the game
 function CreatePlayers() {
-    const setNamesForm = document.querySelector('#set-name');
+    const setNamesForm = document.querySelector('#form-set-name');
     const playerOneNameInput = document.querySelector('#player-one');
     const playerTwoNameInput = document.querySelector('#player-two');
     const applyButton = document.querySelector('#apply-btn');
 
     applyButton.addEventListener('click', (event) => {
         rippleEffect(event.target);
+    });
+    setNamesForm.addEventListener('submit', (event) => {
+        event.preventDefault();
         setTimeout(() => {
             DisplayGame(playerOneNameInput.value, playerTwoNameInput.value);
             setNamesForm.style.display = 'none';

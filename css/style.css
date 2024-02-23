@@ -8,6 +8,24 @@ body {
     box-sizing: border-box;
 }
 
+/* Form styling */
+input:invalid {
+    background-color: #FFEBEE;
+}
+
+input:valid {
+    background-color: #E8F5E9;
+}
+
+input:placeholder-shown {
+    background-color: #E3F2FD;
+}
+
+::placeholder {
+    color: #BDBDBD;
+    font-weight: lighter;
+}
+
 input {
     padding: 1rem;
     font-size: 1.5rem;
@@ -26,15 +44,10 @@ input {
     color: #ffffff;
     font-family: 'Roboto', Arial, sans-serif;
 }
-.label-text {
-    font-size: 1.25rem;
-    font-weight: lighter;
-    color: #E3F2FD;
-}
 .form-control {
     font-size: 1.5rem;
     font-weight: normal;
-    color: #304FFE;
+    color: #332D2D;
 }
 
 /* Spacing */
@@ -193,7 +206,7 @@ input {
     justify-content: center;
     align-items: center;
 }
-.set-name {
+.form-set-name {
     margin: 3rem 0;
     display: flex;
     flex-flow: column wrap;
@@ -224,6 +237,7 @@ input {
 }
 .form-control:focus {
     background-color: white;
+    color: #304FFE;
 }
 
 /* Animation */
@@ -297,7 +311,7 @@ input {
     .cell {
         font-size: 3rem;
     }
-    .set-name {
+    .form-set-name {
         display: flex;
         flex-flow: column wrap;
         align-items: center;
