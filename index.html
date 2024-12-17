@@ -1,75 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tic Tac Toe</title>
+        <!-- Normalize CSS -->
+        <link rel="stylesheet" href="css/normalize.css" />
+        <!-- Icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
+        />
+        <!-- Style -->
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <!-- Normalize CSS -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
-    <!-- Style -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-    <!-- Container Fluid -->
-    <div class="container-fluid waves-container">
-        <svg viewBox="0 0 250 200">
-            <path d="M 0,100 C 250,170 350,0 500,100 L 500,00 L 0,0"></path>
-        </svg>
-        <!-- Header -->
-        <header class="header">
-            <!-- Page Title -->
-            <h1 class="page-title">Tic Tac Toe</h1>
-            <!-- Form -->
-            <form id="form-set-name" class="form-set-name">
-                <!-- Row -->
-                <div class="form-row">
-                    <!-- Form Control -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="player-one" placeholder="Player One" minlength="3"
-                            maxlength="15" required>
+    <body>
+        <!-- Container Fluid -->
+        <div class="container-fluid waves-container">
+            <svg viewBox="0 0 250 200">
+                <path d="M 0,100 C 250,170 350,0 500,100 L 500,00 L 0,0"></path>
+            </svg>
+            <!-- Header -->
+            <header class="header">
+                <!-- Page Title -->
+                <h1 class="page-title">Tic Tac Toe</h1>
+                <!-- Form -->
+                <form id="form-set-name" class="form-set-name">
+                    <!-- Row -->
+                    <div class="form-row">
+                        <!-- Form Control -->
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="player-one"
+                                placeholder="Player One"
+                                minlength="3"
+                                maxlength="15"
+                                required
+                            />
+                        </div>
+                        <!-- Form Control -->
+                        <!-- Form Control -->
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="player-two"
+                                placeholder="Player Two"
+                                minlength="3"
+                                maxlength="15"
+                                required
+                            />
+                        </div>
+                        <!-- Form Control -->
                     </div>
-                    <!-- Form Control -->
-                    <!-- Form Control -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="player-two" placeholder="Player Two" minlength="3"
-                            maxlength="15" required>
-                    </div>
-                    <!-- Form Control -->
+                    <!-- Row -->
+                    <!-- Button -->
+                    <button
+                        id="apply-btn"
+                        class="btn btn-primary"
+                        type="submit"
+                    >
+                        Play Game
+                        <i class="mdi mdi-play me"></i>
+                    </button>
+                </form>
+                <!-- Form -->
+            </header>
+            <!-- Header -->
+            <!-- Main -->
+            <main class="main">
+                <!-- Container -->
+                <div class="container">
+                    <!-- Game Wrapper -->
+                    <section id="game" class="game">
+                        <!-- Text -->
+                        <p id="active-player" class="text player-info"></p>
+                        <!-- Game board -->
+                        <div id="game-board" class="game-board"></div>
+                    </section>
+                    <!-- Game Wrapper -->
                 </div>
-                <!-- Row -->
-                <!-- Button -->
-                <button id="apply-btn" class="btn btn-primary" type="submit">
-                    Play Game
-                    <i class="mdi mdi-play me"></i>
-                </button>
-            </form>
-            <!-- Form -->
-        </header>
-        <!-- Header -->
-        <!-- Main -->
-        <main class="main">
-            <!-- Container -->
-            <div class="container">
-                <!-- Game Wrapper -->
-                <section id="game" class="game">
-                    <!-- Text -->
-                    <p id="active-player" class="text player-info"></p>
-                    <!-- Game board -->
-                    <div id="game-board" class="game-board"></div>
-                </section>
-                <!-- Game Wrapper -->
-            </div>
-            <!-- Container -->
-        </main>
-        <!-- Main -->
-    </div>
-    <!-- Container Fluid -->
+                <!-- Container -->
+            </main>
+            <!-- Main -->
+        </div>
+        <!-- Container Fluid -->
 
-    <script src="js/style.js"></script>
-</body>
-
+        <script src="js/style.js"></script>
+    </body>
 </html>

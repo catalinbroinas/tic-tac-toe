@@ -229,7 +229,7 @@ function DisplayGame(playerOneName, playerTwoName) {
     const updateDisplay = () => {
         boardSect.innerHTML = '';
         boardSect.style.display = 'grid';
-        const iconActivePlayer = document.createElement('i'); 
+        const iconActivePlayer = document.createElement('i');
 
         iconActivePlayer.classList.add('mdi', 'mdi-lightbulb-on');
 
@@ -422,8 +422,8 @@ function rippleEffect(btn) {
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
 
-     // Remove span after 0.3s 
-     setTimeout(() => {
+    // Remove span after 0.3s 
+    setTimeout(() => {
         ripple.remove();
     }, 300);
 }
